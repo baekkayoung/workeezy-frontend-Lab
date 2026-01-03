@@ -4,6 +4,7 @@ import { formatLocalDateTime } from "../../../../utils/dateTime";
 import ReservationCardActions from "./../ReservationCardActions";
 import useImagePath from "../../../../hooks/useImagePath.js";
 import ReviewModal from "../../../review/components/ReviewModal.jsx";
+import { useReservationPolicy } from "../../hooks/useReservationPolicy.js";
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -13,7 +14,7 @@ import Swal from "sweetalert2";
 export default function ReservationCard({ data, isSelected, onSelect }) {
   const navigate = useNavigate();
   const [reviewOpen, setReviewOpen] = useState(false);
-
+  const policy = useReservationPolicy(data);
   const {
     programId, // 꼭 있어야 함 (없으면 예약 API 응답에 포함시켜야 함)
     programTitle,
@@ -67,7 +68,10 @@ export default function ReservationCard({ data, isSelected, onSelect }) {
 
         {/* 정보 섹션 */}
         <div className="info">
-          <ReservationStatusButton status={status} />
+          <ReservationStatusButton
+            status={status}
+            isExpired={policy.isExpired}
+          />
           <div className="title">{programTitle}</div>
 
           <dl className="details">

@@ -1,10 +1,23 @@
 import React from "react";
 import "./ReservationStatusButton.css";
 
-export default function ReservationStatusButton({ status }) {
+export default function ReservationStatusButton({ status, isExpired = false }) {
   let label = "";
   let icon = "";
   let className = "reservation-status-btn";
+
+  if (isExpired) {
+    return (
+      <div className="reservation-status-btn expired">
+        <img
+          src="/reservationStatusIcons/expired.svg"
+          alt="만료됨"
+          className="icon"
+        />
+        <span className="label">예약만료</span>
+      </div>
+    );
+  }
 
   switch (status) {
     case "waiting_payment":
