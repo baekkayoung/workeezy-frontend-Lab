@@ -162,7 +162,6 @@ export default function ReservationFields({
                 onChange={(date) =>
                   onChange({ target: { name: "startDate", value: date } })
                 }
-                showTimeSelect
                 dateFormat="yyyy-MM-dd HH:mm"
                 className="input-text"
                 minDate={startOfDay(now)}
