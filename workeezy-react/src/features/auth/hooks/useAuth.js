@@ -23,7 +23,7 @@ export default function useAuth() {
             }
 
             try {
-                await refreshAxios.post("/api/auth/refresh");
+                // await refreshAxios.post("/api/auth/refresh");
                 const res = await getMyInfoApi();
                 console.log("me success", res.data);
 
@@ -33,6 +33,8 @@ export default function useAuth() {
                 });
             } catch (e) {
                 console.log("me fail", e?.response?.status);
+                // 여기서 401 나면 interceptor가 refresh 처리
+                setUser(null);
             } finally {
                 setInitialized(true);
                 setLoading(false);
