@@ -1,6 +1,6 @@
 import "./ReviewCard.css";
 import { useNavigate } from "react-router-dom";
-import useImagePath from "../../../hooks/useImagePath.js";
+import useImagePath from "../../../../hooks/useImagePath.js";
 
 export default function ReviewCard({ image, rating, programName, reviewText, programId }) {
     const navigate = useNavigate();
