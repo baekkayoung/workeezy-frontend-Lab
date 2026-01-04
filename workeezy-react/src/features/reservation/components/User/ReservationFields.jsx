@@ -26,6 +26,24 @@ export default function ReservationFields({
 }) {
   console.log("🔥 rooms =", rooms);
 
+  const CHECK_IN_HOUR = 15;
+  const CHECK_OUT_HOUR = 11;
+  const STAY_DAYS = 2;
+
+  const handleStartDateChange = (date) => {
+    if (!date) return;
+
+    const start = new Date(date);
+    start.setHours(CHECK_IN_HOUR, 0, 0, 0);
+
+    const end = new Date(start);
+    end.setDate(end.getDate() + STAY_DAYS);
+    end.setHours(CHECK_OUT_HOUR, 0, 0, 0);
+
+    onChange({ target: { name: "startDate", value: start } });
+    onChange({ target: { name: "endDate", value: end } });
+  };
+
   // 사용자가 select에서 옵션 바꿀 때마다 form에 roomId, roomType
   const handleSelectChange = (type, e) => {
     // 사용자가 선택한 option의 value(roomId) 객체 구조 분해 할당
@@ -159,9 +177,10 @@ export default function ReservationFields({
             <div className="input">
               <DatePicker
                 selected={startDate}
-                onChange={(date) =>
-                  onChange({ target: { name: "startDate", value: date } })
-                }
+                onChange={handleStartDateChange}
+                // onChange={(date) =>
+                //   onChange({ target: { name: "startDate", value: date } })
+                // }
                 dateFormat="yyyy-MM-dd HH:mm"
                 className="input-text"
                 minDate={startOfDay(now)}
@@ -178,23 +197,6 @@ export default function ReservationFields({
 
           <div className="ended-at">
             <div className="input">
-              {/* <DatePicker
-                selected={endDate}
-                onChange={(date) =>
-                  onChange({ target: { name: "endDate", value: date } })
-                }
-                showTimeSelect
-                dateFormat="yyyy-MM-dd HH:mm"
-                className="input-text"
-                minDate={startDate ? startOfDay(startDate) : startOfDay(now)}
-                minTime={
-                  startDate && isSameDay(startDate, endDate)
-                    ? startDate // 같은 날 → 시작시간 이후만
-                    : startOfDay(endDate || now) // 다른 날 → 00:00부터
-                }
-                maxTime={endOfDay(endDate || now)}
-              /> */}
-
               <DatePicker
                 className="input-text"
                 selected={endDate}
@@ -288,7 +290,7 @@ export default function ReservationFields({
               });
             }}
             min={1}
-            placeholder="1"
+            placeholder="인원수를 입력하세요"
             className="value"
           />
         </div>
