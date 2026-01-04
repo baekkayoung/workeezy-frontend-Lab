@@ -1,6 +1,7 @@
 import "../components/Result.css";
 import {useEffect, useRef} from "react";
 import {useNavigate, useSearchParams} from "react-router-dom";
+import PageLayout from "../../../layout/PageLayout.jsx";
 
 export default function PaymentSuccessPage() {
     const navigate = useNavigate();
@@ -48,23 +49,25 @@ export default function PaymentSuccessPage() {
     }, [orderId, paymentKey, amount, navigate]);
 
     return (
-        <div className="result-wrapper">
-            <div className="result-box success">
-                <div className="success-icon">✓</div>
-                <h2 className="result-title"> 결제가 완료되었어요</h2>
+        <PageLayout>
+            <div className="result-wrapper">
+                <div className="result-box success">
+                    <div className="success-icon">✓</div>
+                    <h2 className="result-title"> 결제가 완료되었어요</h2>
 
-                <div className="result-info">
-                    <p><strong>주문번호</strong></p>
-                    <p>{orderId}</p>
+                    <div className="result-info">
+                        <p><strong>주문번호</strong></p>
+                        <p>{orderId}</p>
 
-                    <p style={{marginTop: 12}}><strong>결제 금액</strong></p>
-                    <p>{amount.toLocaleString()}원</p>
+                        <p style={{marginTop: 12}}><strong>결제 금액</strong></p>
+                        <p>{amount.toLocaleString()}원</p>
+                    </div>
+
+                    <button className="btn primary" onClick={() => navigate("/reservation/list")}>
+                        예약 현황 조회
+                    </button>
                 </div>
-
-                <button className="btn primary" onClick={() => navigate("/reservation/list")}>
-                    예약 현황 조회
-                </button>
             </div>
-        </div>
+        </PageLayout>
     );
 }
