@@ -106,7 +106,8 @@ export default function ProgramReserveBar() {
       },
     });
   };
-  const canReserve = roomId && checkIn && isAvailable && !checking;
+  //   const canReserve = roomId && checkIn && isAvailable && !checking;
+  const canReserve = roomId && checkIn && isAvailable;
 
   // 체크인 선택시 자동으로 체크아웃 계산
   const handleCheckInChange = (date) => {
@@ -154,27 +155,14 @@ export default function ProgramReserveBar() {
             />
           </div>
         </div>
-
-        <div className="availability-status">
-          {checking && <span className="checking">확인 중...</span>}
-          {!checking && isAvailable === true && (
-            <span className="ok">예약 가능</span>
-          )}
-          {!checking && isAvailable === false && (
-            <span className="fail">예약 불가</span>
-          )}
-        </div>
-
         <div className="pd-reserve-item">
           <label>체크아웃</label>
           <div className={`pd-input-wrap ${!checkIn ? "disabled" : ""}`}>
-            {/* 가짜 placeholder */}
             {!checkIn && (
               <span className="fake-placeholder">
                 체크인 날짜를 선택해주세요.
               </span>
             )}
-
             <DatePicker
               selected={checkOut}
               dateFormat="yyyy-MM-dd HH:mm"
@@ -183,13 +171,26 @@ export default function ProgramReserveBar() {
             />
           </div>
         </div>
-        <button
-          className="pd-reserve-btn"
-          disabled={!canReserve}
-          onClick={onReserve}
-        >
-          {checking ? "확인 중..." : "예약하기"}
-        </button>
+
+        <div className="pd-reserve-actions">
+          <div className="availability-status">
+            {checking && <span className="checking">확인 중..</span>}
+            {!checking && isAvailable === true && (
+              <span className="ok">예약이 가능한 날짜입니다.</span>
+            )}
+            {!checking && isAvailable === false && (
+              <span className="fail">예약이 불가한 날짜입니다.</span>
+            )}
+          </div>
+
+          <button
+            className={`pd-reserve-btn ${checking ? "is-checking" : ""}`}
+            disabled={!canReserve}
+            onClick={onReserve}
+          >
+            {checking ? "확인 중.." : "예약하기"}
+          </button>
+        </div>
       </div>
     </>
   );

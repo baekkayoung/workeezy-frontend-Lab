@@ -1,155 +1,234 @@
 /* ✅ 기본 예약바: 작은 카드 */
 .pd-reserve {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 
-    gap: 1.2rem;
-    padding: 1.2rem;
+  gap: 1.2rem;
+  padding: 1.2rem 0;
 
-    border-radius: 18px;
-    border: 1px solid #eee;
-    background: #fff;
+  border-radius: 18px;
+  border: 1px solid #eee;
+  background: #fff;
 
-    position: relative;
-    z-index: 20;
+  position: relative;
+  z-index: 20;
 
-    width: min(980px, calc(100% - 48px));
-    margin: 0 auto;
+  width: min(980px, calc(100% - 48px));
+  margin: 0 auto;
 
-    transition: none !important; /* ✅ 미끄러짐 제거 */
+  transition: none !important; /* ✅ 미끄러짐 제거 */
 }
 
 /* ✅ 스크롤 내려가면 하단 고정(작은 카드 그대로) */
 .pd-reserve.bottom-fixed {
-    position: fixed;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 16px;
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 16px;
 
-    width: min(980px, calc(100% - 48px));
-    margin: 0;
+  width: min(980px, calc(100% - 48px));
+  margin: 0;
 
-    background: rgba(255, 255, 255, 0.88);
-    backdrop-filter: blur(14px);
-    box-shadow: 0 -4px 18px rgba(0, 0, 0, 0.18);
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 -4px 18px rgba(0, 0, 0, 0.18);
 
-    z-index: 9999;
-    transition: none !important;
+  z-index: 9999;
+  transition: none !important;
 }
 
 /* 예약 항목 */
 .pd-reserve-item {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-    min-width: 200px;
-    margin-top: -10px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-width: 200px;
+  margin-top: -10px;
 }
 
 .pd-reserve-item label {
-    font-size: 0.9rem;
-    color: #333;
+  font-size: 0.9rem;
+  color: #333;
 }
 
 /* Select */
 .pd-reserve-item select {
-    height: 48px;
-    padding: 0.8rem 1.6rem 0.8rem 1rem;
-    background: #e5e5e5;
-    border: none;
-    border-radius: 8px;
-    font-size: 0.95rem;
-    display: flex;
-    align-items: center;
+  height: 48px;
+  padding: 0.8rem 1.6rem 0.8rem 1rem;
+  background: #e5e5e5;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
 }
 
 /* DatePicker */
 .pd-input-wrap {
-    position: relative;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    background: #e5e5e5;
-    padding: 0 0.7rem;
-    border-radius: 8px;
-    border: 1px solid transparent;
+  position: relative;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  background: #e5e5e5;
+  padding: 0 0.7rem;
+  border-radius: 8px;
+  border: 1px solid transparent;
 }
 
 .calendar-icon {
-    position: absolute;
-    left: 10px;
-    font-size: 1.1rem;
-    color: #777;
-    pointer-events: none;
+  position: absolute;
+  left: 10px;
+  font-size: 1.1rem;
+  color: #777;
+  pointer-events: none;
 }
 
 .pd-datepicker {
-    width: 100%;
-    background: transparent;
-    border: none;
-    font-size: 0.95rem;
-    padding-left: 32px !important;
-    cursor: pointer;
-    caret-color: transparent;
+  width: 100%;
+  background: transparent;
+  border: none;
+  font-size: 0.95rem;
+  padding-left: 32px !important;
+  cursor: pointer;
+  caret-color: transparent;
 }
 
 .pd-datepicker:focus {
-    outline: none;
-    box-shadow: none;
+  outline: none;
+  box-shadow: none;
 }
 
 /* disabled */
 .pd-input-wrap.disabled {
-    background: #f3f3f3;
-    border: 1px solid #d0d0d0;
-    cursor: not-allowed;
+  background: #f3f3f3;
+  border: 1px solid #d0d0d0;
+  cursor: not-allowed;
 }
 
 .pd-datepicker:disabled {
-    color: #999;
-    cursor: not-allowed;
+  color: #999;
+  cursor: not-allowed;
 }
 
 .pd-input-wrap.disabled .calendar-icon {
-    color: #bbb;
+  color: #bbb;
 }
 
 .fake-placeholder {
-    position: absolute;
-    left: 30px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 13px;
-    color: #aaa;
-    pointer-events: none;
-    white-space: nowrap;
+  position: absolute;
+  left: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 13px;
+  color: #aaa;
+  pointer-events: none;
+  white-space: nowrap;
 }
 
 /* 버튼 */
+/* .pd-reserve-btn {
+  background-color: #557a46;
+  color: white;
+  border: none;
+  padding: 0.9rem 1.2rem;
+  min-width: 150px;
+  min-height: 49.6px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-left: auto;
+} */
+/* 
+.pd-reserve-btn:hover {
+  background-color: #46663a;
+} */
+
+/* 예약 버튼 */
 .pd-reserve-btn {
-    background-color: #557a46;
-    color: white;
-    border: none;
-    padding: 0.9rem 1.2rem;
-    min-width: 150px;
-    min-height: 70px;
-    border-radius: 10px;
-    font-size: 1rem;
-    cursor: pointer;
-    margin-left: auto;
+  background: #35593d;
+
+  color: #f8f5e9;
+  border: 1px solid rgba(80, 110, 80, 0.35);
+
+  padding: 0.9rem 1.3rem;
+  min-width: 150px;
+  min-height: 49.6px;
+
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+
+  cursor: pointer;
+  margin-left: auto;
+
+  box-shadow: 0 4px 12px rgba(80, 110, 80, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+
+  transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
 }
 
-.pd-reserve-btn:hover {
-    background-color: #46663a;
+/* Hover */
+.pd-reserve-btn:hover:not(:disabled) {
+  background: #2f5137;
+
+  box-shadow: 0 6px 18px rgba(80, 110, 80, 0.32),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+
+  transform: translateY(-1px);
+}
+
+/* Active */
+.pd-reserve-btn:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 3px 8px rgba(80, 110, 80, 0.25),
+    inset 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+/* Disabled */
+.pd-reserve-btn:disabled {
+  background: #e8ece6;
+  color: #a8b0a3;
+  border: 1px solid #d6dcd2;
+  box-shadow: none;
+  cursor: not-allowed;
 }
 
 /* 상태 메시지 */
 .availability-status {
-    font-size: 12px;
-    white-space: nowrap;
+  font-size: 12px;
+  white-space: nowrap;
 }
 
-.availability-status .ok { color: #2ecc71; }
-.availability-status .fail { color: #e74c3c; }
-.availability-status .checking { color: #999; }
+.availability-status .ok {
+  color: #2ecc71;
+}
+.availability-status .fail {
+  color: #e74c3c;
+}
+.availability-status .checking {
+  color: #999;
+}
+
+/* ⭐ 레이아웃 흔들림 방지 핵심 */
+.availability-status {
+  font-size: 12px;
+  min-height: 16px;
+  white-space: nowrap;
+}
+.pd-reserve-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  min-width: 150px;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.pd-reserve-btn.is-checking {
+  pointer-events: none;
+  opacity: 0.85; /* 살짝만 */
+  filter: saturate(0.95);
+}

@@ -145,27 +145,27 @@ export default function ReservationForm({
     fetchProgramForReservation();
   }, [programId, roomId, checkIn, checkOut]);
 
-  useEffect(() => {
-    if (!form.startDate) return;
+  // useEffect(() => {
+  //   if (!form.startDate) return;
 
-    const start = new Date(form.startDate);
+  //   const start = new Date(form.startDate);
 
-    // 이미 15:00이면 더 이상 실행 X
-    if (start.getHours() === 15 && start.getMinutes() === 0) return;
+  //   // 이미 15:00이면 더 이상 실행 X
+  //   if (start.getHours() === 15 && start.getMinutes() === 0) return;
 
-    const fixedStart = new Date(start);
-    fixedStart.setHours(15, 0, 0, 0);
+  //   const fixedStart = new Date(start);
+  //   fixedStart.setHours(15, 0, 0, 0);
 
-    const fixedEnd = new Date(fixedStart);
-    fixedEnd.setDate(fixedEnd.getDate() + 2);
-    fixedEnd.setHours(11, 0, 0, 0);
+  //   const fixedEnd = new Date(fixedStart);
+  //   fixedEnd.setDate(fixedEnd.getDate() + 2);
+  //   fixedEnd.setHours(11, 0, 0, 0);
 
-    setForm((prev) => ({
-      ...prev,
-      startDate: fixedStart,
-      endDate: fixedEnd,
-    }));
-  }, [form.startDate]);
+  //   setForm((prev) => ({
+  //     ...prev,
+  //     startDate: fixedStart,
+  //     endDate: fixedEnd,
+  //   }));
+  // }, [form.startDate]);
 
   const [isAvailable, setIsAvailable] = useState(true);
   const [checking, setChecking] = useState(false);
