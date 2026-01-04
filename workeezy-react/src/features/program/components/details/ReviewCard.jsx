@@ -1,9 +1,13 @@
 import "./ReviewCard.css";
 import { useNavigate } from "react-router-dom";
+import useImagePath from "../../../hooks/useImagePath.js";
 
 export default function ReviewCard({ image, rating, programName, reviewText, programId }) {
-
     const navigate = useNavigate();
+    const { fixPath } = useImagePath();
+
+    // ✅ 로컬/public 경로 → S3 경로로 보정
+    const fixedImage = fixPath(image);
 
     const goDetail = () => {
         if (!programId) {
@@ -13,27 +17,24 @@ export default function ReviewCard({ image, rating, programName, reviewText, pro
         navigate(`/programs/${programId}`);
     };
 
+    const safeRating = Math.max(0, Math.min(5, Number(rating ?? 0)));
+
     return (
         <div className="review-card" onClick={goDetail}>
-            <img src={image} alt={programName} />
+            {fixedImage ? (
+                <img src={fixedImage} alt={programName ?? "review"} />
+            ) : (
+                <div className="review-card-image-fallback">이미지 없음</div>
+            )}
 
             <div className="review-card-content">
-
-                {/* ⭐ 상단 별점 */}
                 <div className="review-stars">
-                    {"★★★★★☆☆☆☆☆".slice(5 - rating, 10 - rating)}
+                    {"★★★★★☆☆☆☆☆".slice(5 - safeRating, 10 - safeRating)}
                 </div>
 
-                {/* ⭐ 프로그램명 */}
-                <div className="review-program-name">
-                    {programName}
-                </div>
+                <div className="review-program-name">{programName}</div>
 
-                {/* ⭐ 리뷰 텍스트 */}
-                <div className="review-text">
-                    {reviewText}
-                </div>
-
+                <div className="review-text">{reviewText}</div>
             </div>
         </div>
     );

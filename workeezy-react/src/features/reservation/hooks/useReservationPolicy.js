@@ -13,6 +13,7 @@ export function useReservationPolicy(reservation) {
   const isRejected = status === "rejected";
   const isCancelled = status === "cancelled";
   const isAfterCheckout = today >= end;
+  const isAfterCheckIn = today >= start;
   console.log("endDate:", endDate);
 
   if (isCancelled) {
@@ -89,6 +90,6 @@ export function useReservationPolicy(reservation) {
     showConfirmDoc: isConfirmed,
     showPaymentWidget: isApproved,
     showPayment: isConfirmed,
-    showReview: isConfirmed && isAfterCheckout,
+    showReview: isConfirmed && isAfterCheckIn,
   };
 }
