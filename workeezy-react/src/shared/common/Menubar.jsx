@@ -12,8 +12,6 @@ export default function MenuBar({ onClose }) {
 
   const { user, isAuthenticated, loading, logout } = useAuthContext();
 
-  console.log("MenuBar render", { user, loading, isAuthenticated });
-
   // 메뉴 데이터
   const userMenu = [
     {

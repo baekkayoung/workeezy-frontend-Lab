@@ -13,11 +13,9 @@ export default function useAuth() {
     // 앱 시작 시 인증 초기화
     useEffect(() => {
         async function initAuth() {
-            console.log("initAuth start");
 
             // 로그인 상태면 skip
             if (initialized) {
-                console.log("initAuth skip (initialized)");
                 setLoading(false);
                 return;
             }
@@ -25,20 +23,17 @@ export default function useAuth() {
             try {
                 // await refreshAxios.post("/api/auth/refresh");
                 const res = await getMyInfoApi();
-                console.log("me success", res.data);
 
                 setUser({
                     name: res.data.name,
                     role: res.data.role,
                 });
             } catch (e) {
-                console.log("me fail", e?.response?.status);
                 // 여기서 401 나면 interceptor가 refresh 처리
                 setUser(null);
             } finally {
                 setInitialized(true);
                 setLoading(false);
-                console.log("initAuth end");
             }
         }
 

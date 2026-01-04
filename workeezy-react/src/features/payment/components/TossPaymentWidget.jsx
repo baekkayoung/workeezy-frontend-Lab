@@ -10,14 +10,11 @@ export default function TossPaymentWidget({orderId, orderName, amount}) {
 
     useEffect(() => {
         async function init() {
-            console.log("🔥 TOSS CLIENT KEY =", import.meta.env.VITE_TOSS_CLIENT_KEY);
             const toss = await loadTossPayments(
                 import.meta.env.VITE_TOSS_CLIENT_KEY
             );
-            console.log("🔥 toss instance =", toss);
 
             const w = toss.widgets({customerKey});
-            console.log("🔥 widgets =", w);
 
             setWidgets(w);
         }
@@ -43,9 +40,7 @@ export default function TossPaymentWidget({orderId, orderName, amount}) {
     }, [widgets, amount]);
 
     const handlePayment = async () => {
-        console.log("🔥 결제 버튼 클릭", {widgets, loading});
         if (!widgets || loading) {
-            console.log("❌ widgets 준비 안 됨");
             return;
         }
 

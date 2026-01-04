@@ -10,50 +10,22 @@ export default function CheckoutPage() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        console.log("🔥 CheckoutPage mounted, reservationId =", reservationId);
 
         api.get(`/api/payments/${reservationId}`)
             .then((res) => {
-                console.log("🔥 payment ready response", res.data);
 
                 if (res.data.status === "CONFIRMED") {
                     navigate("/reservation/list", { replace: true });
                     return;
                 }
 
-
                 setReservation(res.data);
             })
             .catch((e) => {
-                console.error("🔥 payment ready error", e);
                 navigate("/reservation/list", {replace: true});
             })
             .finally(() => setLoading(false));
     }, [reservationId]);
-
-
-    // useEffect(() => {
-    //     fetch(`/api/payments/${reservationId}`, {
-    //         credentials: "include",
-    //     })
-    //         .then(async (res) => {
-    //             if (!res.ok) throw new Error("결제 진입 실패");
-    //             return res.json();
-    //         })
-    //         .then((data) => {
-    //             if (data.status === "CONFIRMED") {
-    //                 navigate("/payment/result/success", {replace: true});
-    //                 return;
-    //             }
-    //             setReservation(data);
-    //         })
-    //
-    //         .catch((e) => {
-    //             console.error(e);
-    //             navigate("/reservation/list", {replace: true});
-    //         })
-    //         .finally(() => setLoading(false));
-    // }, [reservationId, navigate]);
 
     if (loading) {
         return <div style={{textAlign: "center", marginTop: 120}}>결제 정보 불러오는 중...</div>;
