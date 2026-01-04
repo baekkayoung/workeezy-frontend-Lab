@@ -181,15 +181,9 @@ export default function ReservationForm({
         const params = new URLSearchParams({
           roomId: form.roomId,
           startDate: form.startDate.toISOString(),
+          endDate: form.endDate.toISOString(),
         });
-
-        // 날짜가 바뀐 경우에만 excludId
-        const isSameDate =
-          initialData?.startDate &&
-          new Date(initialData.startDate).getTime() ===
-            new Date(form.startDate).getTime();
-
-        if ((mode === "edit" || mode === "resubmit") && !isSameDate) {
+        if ((mode === "edit" || mode === "resubmit") && initialData?.id) {
           params.append("excludeId", initialData.id);
         }
 
