@@ -93,7 +93,7 @@ export default function LoginForm() {
             <LoginButton disabled={loading}/>
 
             {/* 소셜 로그인 */}
-            <SocialLoginButtons/>
+            {/*<SocialLoginButtons/>*/}
         </form>
     );
 }
