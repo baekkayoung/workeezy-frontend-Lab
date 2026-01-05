@@ -45,9 +45,9 @@ export function SearchProvider({ children }) {
     // state
     const [keyword, setKeyword] = useState("");
     const [searchInput, setSearchInput] = useState("");
-    const ignoreUrlOnPop = navType === "POP" && location.pathname === "/search";
-    const effectiveKeyword = keyword || (ignoreUrlOnPop ? "" : urlKeyword);
 
+    // ✅ 뒤로가기(Pop)일 때도 URL에 keyword가 있으면 그걸 유지해야 함
+    const effectiveKeyword = keyword || urlKeyword;
 
     // region filters
     const [bigRegion, setBigRegionState] = useState("전체");
@@ -71,12 +71,14 @@ export function SearchProvider({ children }) {
     });
 
     useEffect(() => {
-        localStorage.setItem("workeezy_recommended_v1", JSON.stringify(recommended));
+        localStorage.setItem(
+            "workeezy_recommended_v1",
+            JSON.stringify(recommended)
+        );
     }, [recommended]);
 
     const fetchRecommendedAndAppend = useCallback(async () => {
         try {
-            // ✅ dedupe 적용 (StrictMode에도 1번만)
             const res = await getDeduped("/api/recommendations/recent");
             const incoming = Array.isArray(res.data) ? res.data : [];
 
@@ -89,24 +91,20 @@ export function SearchProvider({ children }) {
             console.error("recommend fetch failed", e);
         }
     }, []);
-    useEffect(() => {
-        const ignoreUrlOnPop = navType === "POP" && location.pathname === "/search";
-        if (ignoreUrlOnPop) return;
 
-        if (urlKeyword) {
-            setKeyword(urlKeyword);
-            setSearchInput(urlKeyword);
-        }
-    }, [urlKeyword, navType, location.pathname]);
-
-
-
-    // ✅ A안: Search 진입 시 추천은 1회만 가져오면 충분 (dedupe가 있으니 StrictMode도 OK)
     useEffect(() => {
         fetchRecommendedAndAppend();
     }, [fetchRecommendedAndAppend]);
 
-    // UI 초기화
+    // ✅ URL keyword가 바뀌면 input/state 동기화
+    useEffect(() => {
+        if (urlKeyword) {
+            setKeyword(urlKeyword);
+            setSearchInput(urlKeyword);
+        }
+    }, [urlKeyword]);
+
+    // UI 초기화(상태만)
     const resetSearchUI = useCallback(() => {
         setKeyword("");
         setSearchInput("");
@@ -117,19 +115,28 @@ export function SearchProvider({ children }) {
         setHasFetched(false);
     }, []);
 
-    // POP(뒤로/새로고침) 처리
+    // ✅ "전체" 버튼용: 상태 + URL까지 초기화
+    const resetAllSearch = useCallback(() => {
+        resetSearchUI();
+        navigate("/search", { replace: false });
+    }, [resetSearchUI, navigate]);
+
+    // ✅ 뒤로가기(Pop)로 /search 진입: URL에 keyword 있으면 유지, 없으면 초기화
     useEffect(() => {
         if (navType === "POP" && location.pathname === "/search") {
-            if (urlKeyword !== "") {
-                navigate("/search", { replace: true });
+            if (urlKeyword) {
+                setKeyword(urlKeyword);
+                setSearchInput(urlKeyword);
+                setHasFetched(false);
+                setCurrentPageState(1);
+                setViewModeState("list");
+                return;
             }
-            // eslint-disable-next-line react-hooks/set-state-in-effect
             resetSearchUI();
         }
-    }, [navType, location.pathname, urlKeyword, navigate, resetSearchUI]);
+    }, [navType, location.pathname, urlKeyword, resetSearchUI]);
 
-
-    // ✅ fetch (A안 유지: 키워드 없으면 전체 cards)
+    // fetch programs based on keyword
     useEffect(() => {
         let cancelled = false;
 
@@ -143,13 +150,13 @@ export function SearchProvider({ children }) {
                 const k = (effectiveKeyword || "").trim();
 
                 if (!k) {
-                    // ✅ 전체조회도 dedupe 적용 (StrictMode에도 1번만)
                     const res = await getDeduped("/api/programs/cards");
-                    if (!cancelled) setAllPrograms(Array.isArray(res.data) ? res.data : []);
+                    if (!cancelled) {
+                        setAllPrograms(Array.isArray(res.data) ? res.data : []);
+                    }
                     return;
                 }
 
-                // ✅ 검색도 dedupe 적용 (같은 키면 1번만)
                 const res = await getDeduped("/api/search", { params: { keyword: k } });
 
                 const cards = Array.isArray(res.data?.cards)
@@ -263,6 +270,8 @@ export function SearchProvider({ children }) {
 
         viewMode,
         setViewMode,
+
+        resetAllSearch, // ✅ 전체 버튼에서 사용할 것
 
         isLoading,
         hasFetched,

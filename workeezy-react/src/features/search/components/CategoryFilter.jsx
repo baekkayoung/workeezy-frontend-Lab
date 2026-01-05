@@ -5,6 +5,7 @@ export default function CategoryFilter({
                                            smallRegions,
                                            setBigRegion,
                                            setSmallRegions,
+                                           resetAllSearch, // ✅ 추가
                                        }) {
     const bigCategories = ["수도권", "영남권", "호남권", "충청권", "강원권", "제주", "해외"];
 
@@ -25,10 +26,7 @@ export default function CategoryFilter({
             <div className="category-row">
                 <button
                     className={`all-btn ${bigRegion === "전체" ? "active" : ""}`}
-                    onClick={() => {
-                        setBigRegion("전체");
-                        setSmallRegions([]);
-                    }}
+                    onClick={() => resetAllSearch?.()} // ✅ 여기
                 >
                     전체
                 </button>

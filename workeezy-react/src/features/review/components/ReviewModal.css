@@ -8,12 +8,16 @@
     z-index: 9999;
 }
 
+
+
 .review-modal {
     width: min(520px, calc(100vw - 32px));
     background: #fff;
     border-radius: 16px;
     padding: 16px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    position: relative;
+    z-index: 10000;
 }
 
 .review-modal-head {

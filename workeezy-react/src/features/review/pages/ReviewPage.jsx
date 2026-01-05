@@ -110,6 +110,7 @@ export default function ReviewPage() {
                         key = {r.reviewId}
                         image={r.image}
                         rating={r.rating}
+                        userName={r.userName}
                         programName={r.programName}
                         reviewText={r.reviewText}
                         programId={r.programId}

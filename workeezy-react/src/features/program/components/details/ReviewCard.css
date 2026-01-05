@@ -23,13 +23,14 @@
     color: #777;
 }
 
-.review-header-row {
+.review-meta-row {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* 제목 왼쪽, 별점 오른쪽 */
+    justify-content: space-between; /* 별점 왼쪽, 작성자 오른쪽 */
+    margin-bottom: 6px;
+    padding-bottom: 6px;
     border-bottom: 1px solid #eee;
 }
-
 .review-title {
     font-size: 20px;
     font-weight: 600;
@@ -38,4 +39,23 @@
 .review-stars {
     font-size: 14px;
     color: #999;
+}
+
+.review-user-name {
+    font-size: 13px;
+    color: #888;
+    white-space: nowrap;
+}
+
+.review-program-name {
+    font-size: 17px;   /* 기존보다 살짝 크게 */
+    font-weight: 600;
+    margin: 4px 0 6px;
+}
+
+/* 리뷰 본문 */
+.review-text {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.4;
 }

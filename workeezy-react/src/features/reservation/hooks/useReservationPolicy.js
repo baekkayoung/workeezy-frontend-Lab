@@ -1,5 +1,5 @@
 export function useReservationPolicy(reservation) {
-    const {status, startDate, endDate} = reservation;
+    const { status, startDate, endDate, hasReview, reviewId } = reservation;
 
     const today = new Date();
     const start = new Date(startDate);
@@ -13,21 +13,25 @@ export function useReservationPolicy(reservation) {
     const isRejected = status === "rejected";
     const isCancelled = status === "cancelled";
     const isAfterCheckout = today >= end;
-    console.log("endDate:", endDate);
+
+    const isReviewed = Boolean(hasReview ?? reviewId);
+    const canWriteReview = !isReviewed && (isConfirmed && isAfterCheckout);
 
     if (isCancelled) {
         return {
             isExpired: false,
             showRejectReason: false,
             showResubmit: false,
+            showReview: false,
         };
     }
 
     if (isRejected && isExpired) {
         return {
-            isExpired: false, //  만료 버튼으로 덮지 않음
+            isExpired: false, // 만료 버튼으로 덮지 않음
             showRejectReason: true,
             showResubmit: false, // 재신청 막기
+            showReview: false,
         };
     }
 
@@ -35,7 +39,8 @@ export function useReservationPolicy(reservation) {
         return {
             isExpired: false,
             showRejectReason: true,
-            showResubmit: true, // 재신청 가능
+            showResubmit: true,
+            showReview: false,
         };
     }
 
@@ -44,7 +49,7 @@ export function useReservationPolicy(reservation) {
             isExpired: true,
             showRejectReason: false,
             showResubmit: false,
-            showReview: true,
+            showReview: !isReviewed,
         };
     }
 
@@ -68,21 +73,19 @@ export function useReservationPolicy(reservation) {
             !isRejected &&
             (isWaitingPayment || isApproved || (isConfirmed && diffDays >= 3)),
 
-        showCancelRequest:
-            !isRejected && isConfirmed && diffDays >= 1 && diffDays <= 2,
+        showCancelRequest: !isRejected && isConfirmed && diffDays >= 1 && diffDays <= 2,
 
         /* =====================
            변경 / 신청
         ===================== */
         showChange: isWaitingPayment,
-
         showChangeRequest: !isRejected && isConfirmed && diffDays >= 1,
 
         /* =====================
            rejected 전용
         ===================== */
         showRejectReason: isRejected,
-        showResubmit: isRejected, // 재신청
+        showResubmit: isRejected,
 
         /* =====================
            확정서 및 결제
@@ -90,6 +93,10 @@ export function useReservationPolicy(reservation) {
         showConfirmDoc: isConfirmed,
         showPaymentWidget: isApproved,
         showPayment: isConfirmed,
-        showReview: isConfirmed && isAfterCheckout || isExpired,
+
+        /* =====================
+           리뷰
+        ===================== */
+        showReview: canWriteReview,
     };
 }

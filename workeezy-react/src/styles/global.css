@@ -44,3 +44,6 @@ body {
     justify-content: center !important;
     align-items: center !important;
 }
+.swal2-container {
+    z-index: 20000 !important;
+}

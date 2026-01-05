@@ -23,8 +23,12 @@
     font-size: 14px;
     font-weight: 500;        /* 약하게 강조 */
     transition: 0.2s;
+    cursor: pointer;
 }
-
+.all-btn:hover, .category-btn:hover {
+    border-color: #6a8250;
+    color: #6a8250;
+}
 .all-btn.active {
     background: #6a8250;
     border-color: #6a8250;
@@ -47,6 +51,7 @@
     color: #555;
     font-size: 14px;
     transition: 0.2s;
+    cursor: pointer;
 }
 
 .category-btn.active {
