@@ -8,7 +8,10 @@ export default function RoomList() {
 
     if (!rooms || rooms.length === 0) return null;
 
-    const photoList = [hotel?.photo2, hotel?.photo3].map(fixPath);
+    const photoList = [hotel?.photo2, hotel?.photo3, hotel?.photo4,].map(fixPath);
+    console.log("rooms:", rooms);
+    console.log("hotel photos:", hotel?.photo2, hotel?.photo3, hotel?.photo4);
+    console.log("photoList:", photoList);
 
     return (
         <div className="pd-rooms">

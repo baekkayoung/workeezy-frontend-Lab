@@ -4,25 +4,35 @@
     display: flex;
     gap: 20px;
     padding: 20px;
+    align-items: flex-start;
 }
 
-.pd-Activity-info{
-
-    padding: 20px;
+.pd-Activity-info {
     flex: 1;
-    display: block;
-    line-height: 10px;
-    padding-top: 0px;
+    padding: 0 20px 0 20px;   /* 기존 padding 20 유지하되 위쪽은 0 */
+    display: flex;            /* ✅ 세로 정렬 */
+    flex-direction: column;
+    gap: 8px;                 /* ✅ 요소 간 간격 */
+    line-height: 1.4;         /* ✅ 10px 제거 (핵심) */
 }
-
 
 .pd-Activity-img {
     width: 360px;
     height: 240px;
     border-radius: 8px;
+    object-fit: cover;
 }
 
-.pd-Activity-title {
+.pd-Activity-title h3 {
+    margin: 0;                /* ✅ h3 기본 여백 제거 */
     font-size: 18px;
     font-weight: 600;
+}
+
+/* ✅ 링크가 확실히 보이게 */
+.pd-Activity-info a {
+    margin-top: 6px;
+    display: inline-block;
+    text-decoration: underline;
+    cursor: pointer;
 }

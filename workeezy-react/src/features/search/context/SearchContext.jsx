@@ -45,7 +45,9 @@ export function SearchProvider({ children }) {
     // state
     const [keyword, setKeyword] = useState("");
     const [searchInput, setSearchInput] = useState("");
-    const effectiveKeyword = keyword || urlKeyword;
+    const ignoreUrlOnPop = navType === "POP" && location.pathname === "/search";
+    const effectiveKeyword = keyword || (ignoreUrlOnPop ? "" : urlKeyword);
+
 
     // region filters
     const [bigRegion, setBigRegionState] = useState("전체");
@@ -87,6 +89,17 @@ export function SearchProvider({ children }) {
             console.error("recommend fetch failed", e);
         }
     }, []);
+    useEffect(() => {
+        const ignoreUrlOnPop = navType === "POP" && location.pathname === "/search";
+        if (ignoreUrlOnPop) return;
+
+        if (urlKeyword) {
+            setKeyword(urlKeyword);
+            setSearchInput(urlKeyword);
+        }
+    }, [urlKeyword, navType, location.pathname]);
+
+
 
     // ✅ A안: Search 진입 시 추천은 1회만 가져오면 충분 (dedupe가 있으니 StrictMode도 OK)
     useEffect(() => {
@@ -114,6 +127,7 @@ export function SearchProvider({ children }) {
             resetSearchUI();
         }
     }, [navType, location.pathname, urlKeyword, navigate, resetSearchUI]);
+
 
     // ✅ fetch (A안 유지: 키워드 없으면 전체 cards)
     useEffect(() => {
@@ -202,7 +216,7 @@ export function SearchProvider({ children }) {
             }
 
             setKeyword(trimmed);
-            setSearchInput("");
+            setSearchInput(trimmed);
             navigate(`/search?keyword=${encodeURIComponent(trimmed)}`);
 
             setCurrentPageState(1);

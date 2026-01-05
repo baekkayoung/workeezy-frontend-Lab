@@ -14,25 +14,43 @@ export default function ActivityInfo() {
             <hr style={{ border: 0, borderTop: "1px solid #eeeeee" }} />
             <br />
 
-            {attractions.map((a) => (
-                <div key={a.id} className="pd-Activity-card">
-                    <img src={fixPath(a.photo1) ?? ""} className="pd-Activity-img" />
+            {attractions.map((a) => {
+                console.log("attraction item:", a);
 
-                    <div className="pd-Activity-info">
-                        <div className="pd-Activity-title">
-                            <h3>{a.name}</h3>
+                // ✅ equipment 키가 다를 수 있어서 다 받아줌
+                const address =
+                    a?.address ?? a?.placeAddress ?? a?.place_address ?? "";
+
+                // ✅ url 키가 다를 수 있어서 다 받아줌 (여기가 핵심)
+                const url =
+                    a?.attractionUrl ?? a?.url ?? a?.attractionURL ?? a?.attraction_url ?? "";
+
+                return (
+                    <div key={a.id} className="pd-Activity-card">
+                        <img
+                            src={fixPath(a.photo1) ?? ""}
+                            className="pd-Activity-img"
+                            alt={a?.name ?? "activity"}
+                        />
+
+                        <div className="pd-Activity-info">
+                            <div className="pd-Activity-title">
+                                <h2>{a.name}</h2>
+                            </div>
+
+                            <div className="pd-Activity-time">
+                                {String(address).trim() ? address : "주소 정보 없음"}
+                            </div>
+
+                            {String(url).trim() && (
+                                <a href={url} target="_blank" rel="noreferrer">
+                                    지도로 보기
+                                </a>
+                            )}
                         </div>
-
-                        <div className="pd-Activity-time">{a.equipment}</div>
-
-                        {a.attractionUrl && (
-                            <a href={a.attractionUrl} target="_blank" rel="noreferrer">
-                                자세히 보기
-                            </a>
-                        )}
                     </div>
-                </div>
-            ))}
+                );
+            })}
         </section>
     );
 }
