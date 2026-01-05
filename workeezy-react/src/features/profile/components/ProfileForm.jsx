@@ -53,28 +53,59 @@ export default function ProfileForm() {
 
     if (loading || !myInfo) return null;
 
-    const isValidPhone = (value) => /^\d{3}-\d{4}-\d{4}$/.test(value);
+    const PHONE_REGEX = /^010-\d{4}-\d{4}$/;
 
     const handleUpdate = async () => {
-        if (!isValidPhone(user.phone)) {
+        const newPhone = user.phone?.trim();
+
+        if (!newPhone) {
+            await toast.fire({
+                icon: "error",
+                title: "연락처 입력 필요",
+                text: "휴대폰 번호를 입력해주세요.",
+            });
+            return;
+        }
+
+        if (newPhone === myInfo.phone) {
+            await toast.fire({
+                icon: "info",
+                title: "변경 사항 없음",
+                text: "기존 연락처와 동일합니다.",
+            });
+            return;
+        }
+
+        if (!PHONE_REGEX.test(newPhone)) {
             await toast.fire({
                 icon: "error",
                 title: "연락처 형식 오류",
-                text: "하이픈(-) 포함 13자리 형식으로 입력해주세요.",
+                text: "010-1234-5678 형식으로 입력해주세요.",
             });
             return;
         }
 
         try {
-            await updatePhone(user.phone);
+            await updatePhone(newPhone);
+
             await toast.fire({
                 icon: "success",
                 title: "연락처가 성공적으로 변경되었습니다!",
             });
-        } catch {
+        } catch (error) {
+            if (error.response?.data?.code === "DUPLICATE_PHONE_NUMBER") {
+                await toast.fire({
+                    icon: "error",
+                    title: "중복된 연락처",
+                    text: "이미 사용 중인 휴대폰 번호입니다.",
+                });
+                return;
+            }
+
             await toast.fire({
                 icon: "error",
                 title: "수정에 실패했습니다.",
+                text: "잠시 후 다시 시도해주세요.",
             });
         }
     };
@@ -104,6 +135,42 @@ export default function ProfileForm() {
     };
 
     const handleChangePassword = async () => {
+        if(!currentPassword || !newPassword || !newPasswordCheck) {
+            await toast.fire({
+                icon: "error",
+                title: "입력값 확인",
+                text: "모든 비밀번호 칸을 입력해주세요."
+            });
+            return;
+        }
+
+        if(passwordValidMessage !== "사용 가능한 비밀번호입니다.") {
+            await toast.fire({
+                icon: "error",
+                title: "비밀번호 규칙 오류",
+                text: passwordValidMessage,
+            });
+            return;
+        }
+
+        if(newPassword !== newPasswordCheck) {
+            await toast.fire({
+                icon: "error",
+                title: "비밀번호 확인 오류",
+                text: "새 비밀번호가 일치하지 않습니다.",
+            });
+            return;
+        }
+
+        if(currentPassword === newPassword) {
+            await toast.fire({
+                icon: "error",
+                title: "비밀번호 변경 불가",
+                text: "기존 비밀번호와 동일한 비밀번호는 사용할 수 없습니다.",
+            });
+            return;
+        }
+
         try {
             await updatePassword(currentPassword, newPassword, newPasswordCheck);
             await toast.fire({
@@ -114,10 +181,11 @@ export default function ProfileForm() {
         } catch (err) {
             await toast.fire({
                 icon: "error",
-                title: err.response?.data || "비밀번호 변경 실패",
+                title: err.response?.data?.message || "비밀번호 변경 실패",
             });
         }
     };
+
     return (
         <>
             <SectionHeader icon="far fa-user" title="개인 정보 조회"/>
