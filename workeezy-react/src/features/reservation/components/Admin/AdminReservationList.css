@@ -145,9 +145,7 @@
 .reservation-table td:nth-child(5) {
   width: 12%;
 }
-.react-datepicker__input-container {
-  width: 220px;
-}
+
 .react-datepicker__close-icon {
   right: 0px; /* 조금 안쪽 */
 }
