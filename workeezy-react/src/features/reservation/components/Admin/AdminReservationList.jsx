@@ -5,6 +5,8 @@ import ReservationStatusButton from "../ReservationStatusButton.jsx";
 import axios from "../../../../api/axios";
 import { useNavigate } from "react-router-dom";
 import CursorPagination from "../../../../shared/common/CursorPagination.jsx";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function AdminReservationList() {
   const [reservations, setReservations] = useState([]); // 예약 목록
@@ -20,9 +22,13 @@ export default function AdminReservationList() {
   const [filters, setFilters] = useState({
     status: "",
     keyword: "",
+    checkInFrom: null,
+    checkInTo: null,
   });
 
   const navigate = useNavigate();
+  // 날짜 변환 함수
+  const toYmd = (date) => (date ? date.toISOString().slice(0, 10) : null);
 
   // page/filters 바뀔 때마다 목록 재조회
   // useEffect(() => {
@@ -42,6 +48,8 @@ export default function AdminReservationList() {
           size: 20,
           status: filters.status || null,
           keyword: filters.keyword || null,
+          checkInFrom: toYmd(filters.checkInFrom),
+          checkInTo: toYmd(filters.checkInTo),
         },
       });
 
@@ -95,9 +103,27 @@ export default function AdminReservationList() {
 
         <input
           type="text"
-          placeholder="프로그램명 / 예약자 검색"
+          placeholder="예약번호 / 프로그램명 / 예약자 검색"
           value={filters.keyword}
           onChange={(e) => setFilters({ ...filters, keyword: e.target.value })}
+        />
+
+        <DatePicker
+          className="datePicker"
+          selectsRange
+          startDate={filters.checkInFrom}
+          endDate={filters.checkInTo}
+          onChange={([start, end]) =>
+            setFilters({
+              ...filters,
+              checkInFrom: start,
+              checkInTo: end,
+            })
+          }
+          isClearable
+          placeholderText="체크인 날짜의 범위를 선택하세요"
+          dateFormat="yyyy-MM-dd"
+          popperPlacement="bottom-start"
         />
       </div>
 
