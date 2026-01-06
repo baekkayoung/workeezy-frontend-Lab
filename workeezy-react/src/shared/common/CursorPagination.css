@@ -10,11 +10,11 @@
 /* 공통 버튼 */
 .cursor-btn {
   appearance: none;
-  border: 1px solid #dcdfe4;
+  border: 1px solid #cfd8c3;
   background: #ffffff;
-  color: #222;
+  color: #2f3b24;
   border-radius: 10px;
-  padding: 10px 16px;
+  padding: 10px 15px;
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
@@ -24,11 +24,10 @@
 
 /* hover */
 .cursor-btn:hover:not(:disabled) {
-  background: #f6f7f9;
-  border-color: #cfd4dc;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  background: #f4f6f2; /* 베이지 */
+  border-color: #b8c4aa;
+  box-shadow: 0 6px 16px rgba(106, 130, 80, 0.18);
 }
-
 /* active */
 .cursor-btn:active:not(:disabled) {
   transform: translateY(1px);
@@ -36,21 +35,21 @@
 
 /* disabled */
 .cursor-btn:disabled {
-  opacity: 0.45;
+  opacity: 0.6;
   cursor: not-allowed;
   box-shadow: none;
   transform: none;
 }
 
-/* 다음 버튼 강조 (선택) */
+/* 다음 버튼 강조 */
 .cursor-btn.next {
-  background: #2f6fed;
-  border-color: #2f6fed;
-  color: #fff;
+  background: #6a8250; /* 메인 그린 */
+  border-color: #6a8250;
+  color: #ffffff;
 }
 
 .cursor-btn.next:hover:not(:disabled) {
-  background: #285fd0;
-  border-color: #285fd0;
-  box-shadow: 0 8px 22px rgba(47, 111, 237, 0.22);
+  background: #5b7044; /* 진한 그린 */
+  border-color: #5b7044;
+  box-shadow: 0 8px 20px rgba(106, 130, 80, 0.28);
 }

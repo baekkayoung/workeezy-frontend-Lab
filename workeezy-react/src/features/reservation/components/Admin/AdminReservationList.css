@@ -17,6 +17,17 @@
   align-items: center;
 }
 
+.filters select {
+  width: 130px;
+}
+.filters input {
+  width: 350px;
+}
+
+.filters .datePicker {
+  width: 200px;
+}
+
 .filters select,
 .filters input {
   height: 36px;
@@ -133,4 +144,10 @@
 .reservation-table th:nth-child(5),
 .reservation-table td:nth-child(5) {
   width: 12%;
+}
+.react-datepicker__input-container {
+  width: 220px;
+}
+.react-datepicker__close-icon {
+  right: 0px; /* 조금 안쪽 */
 }
