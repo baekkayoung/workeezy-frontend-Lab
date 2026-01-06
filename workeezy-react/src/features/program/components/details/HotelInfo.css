@@ -1,7 +1,6 @@
 .pd-hotel-card {
     display: flex;
     gap: 20px;
-    padding: 20px;
     margin-bottom: 10px;
 }
 
@@ -15,11 +14,20 @@
 
 
 .pd-hotel-img {
-    width: 200px;
+    width: 240px;
     border-radius: 8px;
 }
 
+.pd-hotel-address{
+    margin-bottom: 10px;
+}
+
+.pd-hotel-desc{
+    font-size: 16px;
+    font-weight: bold;
+}
 .pd-hotel-title {
-    font-size: 18px;
+    font-size: 24px;
     font-weight: 600;
+    margin-bottom: 10px;
 }

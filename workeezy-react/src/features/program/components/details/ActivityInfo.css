@@ -17,8 +17,7 @@
 }
 
 .pd-Activity-img {
-    width: 360px;
-    height: 240px;
+    width: 240px;
     border-radius: 8px;
     object-fit: cover;
 }
