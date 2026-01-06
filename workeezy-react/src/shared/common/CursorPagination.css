@@ -1,0 +1,56 @@
+/* ===== Cursor Pagination ===== */
+.cursor-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+/* 공통 버튼 */
+.cursor-btn {
+  appearance: none;
+  border: 1px solid #dcdfe4;
+  background: #ffffff;
+  color: #222;
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 120ms ease, box-shadow 120ms ease,
+    transform 120ms ease, border-color 120ms ease, opacity 120ms ease;
+}
+
+/* hover */
+.cursor-btn:hover:not(:disabled) {
+  background: #f6f7f9;
+  border-color: #cfd4dc;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+/* active */
+.cursor-btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+/* disabled */
+.cursor-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+/* 다음 버튼 강조 (선택) */
+.cursor-btn.next {
+  background: #2f6fed;
+  border-color: #2f6fed;
+  color: #fff;
+}
+
+.cursor-btn.next:hover:not(:disabled) {
+  background: #285fd0;
+  border-color: #285fd0;
+  box-shadow: 0 8px 22px rgba(47, 111, 237, 0.22);
+}
