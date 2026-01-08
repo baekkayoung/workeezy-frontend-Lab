@@ -15,9 +15,11 @@ export default function AdminReservationList() {
 
   // 커서기반 페이지네이션
 
-  const [cursor, setCursor] = useState(null); // 현재 기준 커서 (ex: lastId)
+  // const [cursor, setCursor] = useState(null); // 현재 기준 커서 (ex: lastId)
   // const [prevCursor, setPrevCursor] = useState(null);
+  const [currentCursor, setCurrentCursor] = useState(null);
   const [cursorStack, setCursorStack] = useState([]);
+  const [nextCursor, setNextCursor] = useState(null);
   const [hasNext, setHasNext] = useState(false);
   const [filters, setFilters] = useState({
     status: "",
@@ -56,7 +58,8 @@ export default function AdminReservationList() {
       console.log("admin cursor res =", res.data);
 
       setReservations(res.data.content);
-      setCursor(res.data.nextCursor);
+      setCurrentCursor(cursorValue);
+      setNextCursor(res.data.nextCursor);
       // setPrevCursor(res.data.prevCursor);
       setHasNext(res.data.hasNext);
     } catch (error) {
@@ -64,10 +67,10 @@ export default function AdminReservationList() {
     }
   };
   const fetchNext = () => {
-    if (!cursor) return;
+    if (!nextCursor) return;
 
-    setCursorStack((prev) => [...prev, cursor]); // 🔑 현재 커서 저장
-    fetchReservations(cursor);
+    setCursorStack((prev) => [...prev, currentCursor]); // 🔑 현재 커서 저장
+    fetchReservations(nextCursor);
   };
 
   const fetchPrev = () => {
