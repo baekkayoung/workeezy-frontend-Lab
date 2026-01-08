@@ -13,7 +13,7 @@
     margin: 0 auto;
 }
 
-/* ⭐ 전체 버튼 디자인 보정: 덩그러짐 제거 */
+/* 전체 버튼 디자인 보정 */
 .all-btn {
     padding: 7px 18px;       /* 높이 줄임 */
     border-radius: 16px;     /* 모양을 다른 버튼과 통일 */
@@ -26,23 +26,22 @@
     cursor: pointer;
 }
 .all-btn:hover, .category-btn:hover {
-    border-color: #6a8250;
-    color: #6a8250;
+    border-color: #2c4a33;
 }
 .all-btn.active {
-    background: #6a8250;
-    border-color: #6a8250;
+    background: #35593d;
+    border-color: #35593d;
     color: white;
 }
 
-/* ⭐ 1차/2차 버튼 묶음 */
+/* 1차/2차 버튼 묶음 */
 .category-buttons {
     display: flex;
     flex-wrap: wrap;
     gap: 10px 14px;
 }
 
-/* ⭐ 나머지 버튼들 */
+/* 나머지 버튼들 */
 .category-btn {
     padding: 7px 18px;
     border-radius: 16px;
@@ -55,7 +54,7 @@
 }
 
 .category-btn.active {
-    background: #6a8250;
+    background: #35593d;
     color: white;
-    border-color: #6a8250;
+    border-color: #35593d;
 }

@@ -38,7 +38,7 @@ export default function AdminReservationDetail({ reservationId }) {
                 <ReservationStatusButton status={reservation.status} />
 
                 <div className="detail-section">
-                    <h3 className="section-title">예약 정보</h3>
+                    <h3 className="admin-section-title">예약 정보</h3>
                     <dl className="detail-grid">
                         <dt>예약번호</dt>
                         <dd>{reservation.reservationNo}</dd>

@@ -14,7 +14,7 @@ export default defineConfig({
         },
     },
 
-    // ✅ Vitest 설정 추가
+    // Vitest 설정 추가
     test: {
         globals: true,              // describe / it / expect 전역 사용
         environment: "jsdom",       // React 컴포넌트 대비

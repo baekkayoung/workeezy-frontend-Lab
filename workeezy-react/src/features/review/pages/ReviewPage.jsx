@@ -69,7 +69,7 @@ export default function ReviewPage() {
     });
 
 
-    // ⭐ 페이지 계산
+    // 페이지 계산
     const totalPages = Math.ceil(filteredReviews.length / pageSize);
     const start = (currentPage - 1) * pageSize;
     const paginatedReviews = filteredReviews.slice(start, start + pageSize);
@@ -77,7 +77,7 @@ export default function ReviewPage() {
 
     return (
         <PageLayout>
-            <SectionHeader icon="far fa-comment" title="Review" />
+            <SectionHeader icon="far fa-comment" title="리뷰" />
 
             {/* 검색창 */}
             <SearchBar

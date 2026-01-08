@@ -1,0 +1,14 @@
+.notice-container {
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.notice-title {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.notice-message {
+    margin: 16px 0 32px;
+    color: #666;
+}

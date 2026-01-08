@@ -14,17 +14,17 @@
     height: 48px;
     border-radius: 50%;
     border: none;
-    background: rgb(8, 73, 0);
+    background: #35593d;
     color: #fff;
 }
 
 .floating-btns button:hover {
-    background: rgba(8, 73, 0, 0.74);
+    background: #2c4a33;
     color: #fff;
     cursor: pointer;
 }
 
-/* ✅ 클래스명 JSX와 동일하게 */
+/* 클래스명 JSX와 동일하게 */
 .chatButton {
     display: flex;
     align-items: center;

@@ -43,13 +43,13 @@
 
 /* 다음 버튼 강조 */
 .cursor-btn.next {
-  background: #6a8250; /* 메인 그린 */
-  border-color: #6a8250;
+  background: #35593d;
+  border-color: #35593d;
   color: #ffffff;
 }
 
 .cursor-btn.next:hover:not(:disabled) {
-  background: #5b7044; /* 진한 그린 */
-  border-color: #5b7044;
+  background: #2c4a33;
+  border-color: #2c4a33;
   box-shadow: 0 8px 20px rgba(106, 130, 80, 0.28);
 }

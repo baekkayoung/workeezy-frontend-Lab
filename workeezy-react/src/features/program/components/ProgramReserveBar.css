@@ -1,4 +1,4 @@
-/* ✅ 기본 예약바: 작은 카드 */
+/* 기본 예약바: 작은 카드 */
 .pd-reserve {
   display: flex;
   align-items: center;
@@ -17,10 +17,10 @@
   width: min(980px, calc(100% - 48px));
   margin: 0 auto;
 
-  transition: none !important; /* ✅ 미끄러짐 제거 */
+  transition: none !important; /* 미끄러짐 제거 */
 }
 
-/* ✅ 스크롤 내려가면 하단 고정(작은 카드 그대로) */
+/* 스크롤 내려가면 하단 고정(작은 카드 그대로) */
 .pd-reserve.bottom-fixed {
   position: fixed;
   left: 50%;
@@ -146,7 +146,8 @@
 
 /* 예약 버튼 */
 .pd-reserve-btn {
-  background: #35593d;
+  /*background: #35593d;*/
+  background: rgba(8, 73, 0, 0.78);
 
   color: #f8f5e9;
   border: 1px solid rgba(80, 110, 80, 0.35);
@@ -171,7 +172,7 @@
 
 /* Hover */
 .pd-reserve-btn:hover:not(:disabled) {
-  background: #2f5137;
+  background: #3a6243;
 
   box-shadow: 0 6px 18px rgba(80, 110, 80, 0.32),
     inset 0 1px 0 rgba(255, 255, 255, 0.35);
@@ -211,7 +212,7 @@
   color: #999;
 }
 
-/* ⭐ 레이아웃 흔들림 방지 핵심 */
+/* 레이아웃 흔들림 방지 핵심 */
 .availability-status {
   font-size: 12px;
   min-height: 16px;
