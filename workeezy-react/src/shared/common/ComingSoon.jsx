@@ -9,7 +9,7 @@ export default function ComingSoon() {
             title="서비스 준비 중입니다 🙂"
             message="해당 기능은 현재 개발 중이며, 곧 제공될 예정입니다."
         >
-            <button className="notice-btn" onClick={() => nav(-1)}>
+            <button className="error-btn" onClick={() => nav(-1)}>
                 이전 페이지로
             </button>
         </NoticeLayout>
