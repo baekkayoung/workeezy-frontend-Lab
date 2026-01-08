@@ -13,6 +13,18 @@ export default function ReservationCardActions({reservation, onOpenReview}) {
     // 예약 취소
     const handleCancel = async (e) => {
         e.stopPropagation();
+
+        // 예약 확정(결제 완료) 상태 차단
+        if (reservation.status === "confirmed") {
+            await Swal.fire({
+                title: "취소할 수 없는 예약입니다",
+                text: "결제가 완료된 예약은 관리자에게 문의해주세요.",
+                icon: "info",
+                confirmButtonText: "확인",
+            });
+            return;
+        }
+
         const result = await Swal.fire({
             title: "예약을 취소하시겠습니까?",
             text: "취소 후에는 되돌릴 수 없습니다.",
