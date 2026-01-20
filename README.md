@@ -6,7 +6,7 @@ _클라우드 연동 워케이션 서포트 시스템_
 
 <br>
 
-🌱 Work easy, grow 2gether
+🌱 Work easy, grow 2gether !
 
 
 최근 기업 복지의 트렌드는 단순한 휴가 제공을 넘어, 업무와 휴식을 병행할 수 있는 ‘워케이션(Workation)’으로 확장되고 있다.
